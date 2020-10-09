@@ -1,0 +1,6 @@
+﻿Saber nombre de los empleados y un teléfono asociado (solo uno por empleado).
+Poder añadir nuevos empleados, borrarlos, editarlos, buscarlos (por nombre, teléfono).
+Poder salir de la aplicación al acabarla.
+Hacer un menú usando un repetir, con una variable llamada opción.
+
+
