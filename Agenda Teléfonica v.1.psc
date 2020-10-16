@@ -160,7 +160,7 @@ Algoritmo Agenda_Teléfonica
 				Hasta Que opcBorrar == 3;
 				
 			5:
-				Escribir "Nada";
+				Escribir "Lista de Contactos: Nombre: " + nombre + " Teléfono: ", telf;
 				
 			6:
 				Escribir "Aplicación Finalizada";
