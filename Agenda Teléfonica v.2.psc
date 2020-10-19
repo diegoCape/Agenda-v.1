@@ -5,8 +5,8 @@ Algoritmo Agenda_Teléfonica
 	
 	i = 0; auxN = ""; auxT = "";
 	
-	//Para Esta Versión de la Agenda Vamos a Asignarle Un Tamaño de 5 Contactos Máx (Nombre + Telefono).
-	tam = 2;
+	//Para Esta Versión de la Agenda Vamos a Asignarle Un Tamaño de 3 Contactos Máx (Nombre + Telefono).
+	tam = 3;
 	
 	Dimension vContactos[tam];
 	
@@ -20,11 +20,15 @@ Algoritmo Agenda_Teléfonica
 		
 		Escribir "---------------------------------------";
 		
-		vContactos[i] = nombre + " " + telefono;
+		Si (vContactos[i] == " ") Entonces
+			vContactos[i] = nombre + " " + telefono;
+		SiNo
+			Escribir "La Lista de Contactos Esta Llena";
+		FinSi
 	Fin Para
 	
 	Para i=1 Hasta tam Con Paso 1 Hacer
-		Mientras (Subcadena(vContactos[i],i,i) != " ") Hacer
+		Mientras (Subcadena(vContactos[i],i,i) <> " ") Hacer
 			auxN = auxN + Subcadena(vContactos[i],i,i);
 			i = i + 1;
 			
