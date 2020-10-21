@@ -2,5 +2,7 @@
 Poder añadir nuevos empleados, borrarlos, editarlos, buscarlos (por nombre, teléfono).
 Poder salir de la aplicación al acabarla.
 Hacer un menú usando un repetir, con una variable llamada opción.
+Usar Subproceso para menu y mostrar.
+Para el bloque de codigo de separar el contacto usar una funcion.
 
 

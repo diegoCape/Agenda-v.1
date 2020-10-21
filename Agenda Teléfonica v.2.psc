@@ -1,18 +1,27 @@
 Algoritmo Agenda_Teléfonica
 	
 	Definir vContactos, nombre, telf, contacto, auxN, auxT, comprNombre, comprTelf Como Caracter;
-	Definir tam, i, opc, opcBuscar, opcEditar, opcBorrar Como Entero;
+	Definir tam, i, j, opc, opcBuscar, opcEditar, opcBorrar Como Entero;
+	Definir encontrado Como Logico;
 	
-	i = 0;
+	i = 0; j = 0;
 	nombre = ""; telf = "";
 	auxN = ""; auxT = "";
 	comprNombre = ""; comprTelf = "";
 	opc = 0; opcBuscar = 0; opcEditar = 0; opcBorrar = 0;
+	encontrado = Falso;
 	
 	//Para Esta Versión de la Agenda Vamos a Asignarle Un Tamaño de 3 Contactos Máx (Nombre + Telefono).
+	
 	tam = 3;
 	
 	Dimension vContactos[tam];
+	
+	
+	Para i = 0 Hasta tam - 1 Con Paso 1 Hacer
+		vContactos[i] = "";
+	Fin Para
+	
 	
 	
 	Repetir
@@ -44,45 +53,68 @@ Algoritmo Agenda_Teléfonica
 					FinSi
 				Fin Para
 				
-			2:
+				Escribir contacto;
 				
+			2:
 				Repetir
 					Escribir "Pulsa 1 si Quieres Buscar por Nombre";
 					Escribir "Pulsa 2 si Quieres Buscar por Teléfono";
 					Escribir "Pulsa 3 Para Salir";
 					Leer opcBuscar;
+					encontrado = Falso;
 					
 					Segun opcBuscar Hacer
 						1:
-							Para i=1 Hasta tam-1 Con Paso 1 Hacer
-								Si (Subcadena(vContactos[i],i,i) <> ";") Entonces
-									auxN = auxN + Subcadena(vContactos[i],i,i-1);
-									i = i + 1;
-								SiNo
-									Si (Subcadena(vContactos[i],i,i) == ";") Entonces
-										auxT = auxT + Subcadena(vContactos[i],i,i+1);
-									FinSi
-								FinSi
-							Fin Para
-							
 							Escribir "Introduce el Nombre del Contacto a Buscar";
 							Leer comprNombre;
 							
-							Si (comprNombre == auxN) Entonces
-								Escribir "El Nombre de tu Contacto es: " + auxN + " y su Telf. es: ", auxT;
-							SiNo
+							Para i=0 Hasta tam-1 Con Paso 1 Hacer
+								Si (vContactos[i] <> "") Entonces
+									Para j = 0 Hasta Longitud(vContactos[i])-1 Con Paso 1 Hacer
+										Si (Subcadena(vContactos[i],j,j) == ";") Entonces
+											auxN = Subcadena(vContactos[i],0,j-1);
+											auxT = Subcadena(vContactos[i],j+1,Longitud(vContactos[i])-1);
+										FinSi
+									Fin Para
+									Si (comprNombre == auxN) Entonces
+										Escribir "El Nombre de tu Contacto es: " + auxN + " y su Telf. Asociado es: ", auxT;
+										Escribir "------------------------------------------------------------------------";
+										encontrado = Verdadero;
+									Fin Si
+								FinSi
+							Fin Para
+							
+							Si (encontrado == Falso) Entonces
 								Escribir "No Existe un Contacto con ese Nombre";
 								Escribir "------------------------------------";
 							Fin Si
 							
 						2:
+							auxN = "";
+							auxT = "";
+							
 							Escribir "Introduce el Teléfono del Contacto a Buscar";
 							Leer comprTelf;
 							
-							Si (comprTelf == auxT) Entonces
-								Escribir "El Telf. de tu Contacto es: ", auxT, " y su Nombre es: " + auxN;
-								Escribir "---------------------------------------------------------------------";
-							SiNo
+							
+							Para i=0 Hasta tam-1 Con Paso 1 Hacer
+								Si (vContactos[i] <> "") Entonces
+									Para j = 0 Hasta Longitud(vContactos[i])-1 Con Paso 1 Hacer
+										Si (Subcadena(vContactos[i],j,j) == ";") Entonces
+											auxN = Subcadena(vContactos[i],0,j-1);
+											auxT = Subcadena(vContactos[i],j+1,Longitud(vContactos[i])-1);
+										FinSi
+									Fin Para
+									Si (comprTelf == auxT) Entonces
+										Escribir "El Telf. de tu Contacto es: ", auxT, " y su Nombre Asociado es: " + auxN;
+										Escribir "-----------------------------------------------------------------------";
+										encontrado = Verdadero;
+									FinSi
+								FinSi
+							Fin Para
+							
+							
+							Si (encontrado == Falso) Entonces
 								Escribir "No Existe un Contacto con ese Teléfono";
 								Escribir "--------------------------------------";
 							FinSi
@@ -97,40 +129,75 @@ Algoritmo Agenda_Teléfonica
 					Escribir "Pulsa 2 si Quieres Buscar por Teléfono un Contacto Para Editarlo";
 					Escribir "Pulsa 3 Para Salir";
 					Leer opcEditar;
+					encontrado = Falso;
 					
 					Segun opcEditar Hacer
 						1:
-							Escribir "Introduce el Nombre del Contacto a Buscar";
+							Escribir "Introduce el Nombre del Contacto a Buscar Para Editarlo";
 							Leer comprNombre;
 							
-							Si (comprNombre == nombre) Entonces
-								Escribir "Escribe Ahora el Nuevo Nombre Para el Contacto";
-								Leer nombre;
-								
-								Escribir "Escribe Ahora el Nuevo Telf. Para el Contacto";
-								Leer telf;
-								
-								Escribir "El Contacto queda Así, Nombre: " + nombre + " Teléfono: ", telf;
-								Escribir "--------------------------------------------------------------";
-							SiNo
+							
+							Para i=0 Hasta tam-1 Con Paso 1 Hacer
+								Si (vContactos[i] <> "") Entonces
+									Para j = 0 Hasta Longitud(vContactos[i])-1 Con Paso 1 Hacer
+										Si (Subcadena(vContactos[i],j,j) == ";") Entonces
+											auxN = Subcadena(vContactos[i],0,j-1);
+											auxT = Subcadena(vContactos[i],j+1,Longitud(vContactos[i])-1);
+										FinSi
+									Fin Para
+									Si (comprNombre == auxN) Entonces
+										Escribir "Escribe Ahora el Nuevo Nombre Para el Contacto";
+										Leer nombre;
+										
+										Escribir "Escribe Ahora el Nuevo Telf. Para el Contacto";
+										Leer telf;
+										
+										Escribir "El Contacto queda Así, Nombre: " + nombre + " Teléfono: ", telf;
+										Escribir "--------------------------------------------------------------";
+										encontrado = Verdadero;
+									FinSi
+								FinSi
+							Fin Para
+							
+							
+							Si (encontrado == Falso) Entonces
 								Escribir "No Existe un Contacto con ese Nombre, Imposible Editar";
 								Escribir "------------------------------------------------------";
 							Fin Si
 							
 						2:
-							Escribir "Introduce el Teléfono del Contacto a Buscar";
+							auxN = ""; auxT = "";
+							nombre = ""; telf = "";
+							comprNombre = ""; comprTelf = "";
+							
+							
+							Escribir "Introduce el Teléfono del Contacto a Buscar Para Editarlo";
 							Leer comprTelf;
 							
-							Si (comprTelf == telf) Entonces
-								Escribir "Escribe Ahora el Nuevo Telf. Para el Contacto";
-								Leer telf;
-								
-								Escribir "Escribe Ahora el Nuevo Nombre Para el Contacto";
-								Leer nombre;
-								
-								Escribir "El Contacto queda Así, Nombre: " + nombre + " Teléfono: ", telf;
-								Escribir "--------------------------------------------------------------";
-							SiNo
+							Para i=0 Hasta tam-1 Con Paso 1 Hacer
+								Si (vContactos[i] <> "") Entonces
+									Para j = 0 Hasta Longitud(vContactos[i])-1 Con Paso 1 Hacer
+										Si (Subcadena(vContactos[i],j,j) == ";") Entonces
+											auxN = Subcadena(vContactos[i],0,j-1);
+											auxT = Subcadena(vContactos[i],j+1,Longitud(vContactos[i])-1);
+										FinSi
+									Fin Para
+									Si (comprTelf == auxT) Entonces
+										Escribir "Escribe Ahora el Nuevo Telf. Para el Contacto";
+										Leer telf;
+										
+										Escribir "Escribe Ahora el Nuevo Nombre Para el Contacto";
+										Leer nombre;
+										
+										Escribir "El Contacto queda Así, Nombre: " + nombre + " Teléfono: ", telf;
+										Escribir "--------------------------------------------------------------";
+										encontrado = Verdadero;
+									FinSi
+								FinSi
+							Fin Para
+							
+							
+							Si (encontrado == Falso) Entonces
 								Escribir "No Existe un Contacto con ese Teléfono, Imposible Editar";
 								Escribir "--------------------------------------------------------";
 							FinSi
@@ -147,32 +214,67 @@ Algoritmo Agenda_Teléfonica
 					Escribir "Pulsa 2 Para Buscar un Contacto por Teléfono Para Borrarlo";
 					Escribir "Pulsa 3 Para Salir";
 					Leer opcBorrar;
+					encontrado = Falso;
 					
 					Segun opcBorrar Hacer
 						1:
-							Escribir "Introduce el Nombre del Contacto a Buscar";
+							Escribir "Introduce el Nombre del Contacto a Buscar Para Borrarlo";
 							Leer comprNombre;
 							
-							Si (comprNombre == nombre) Entonces
-								nombre = "";
-								telf = "";
-								Escribir "Contacto Borrado";
-								Escribir "----------------";
-							SiNo
+							
+							Para i=0 Hasta tam-1 Con Paso 1 Hacer
+								Si (vContactos[i] <> "") Entonces
+									Para j = 0 Hasta Longitud(vContactos[i])-1 Con Paso 1 Hacer
+										Si (Subcadena(vContactos[i],j,j) == ";") Entonces
+											auxN = Subcadena(vContactos[i],0,j-1);
+											auxT = Subcadena(vContactos[i],j+1,Longitud(vContactos[i])-1);
+										FinSi
+									Fin Para
+									Si (comprNombre == auxN) Entonces
+										nombre = "";
+										telf = "";
+										Escribir "Contacto Borrado";
+										Escribir "----------------";
+										encontrado = Verdadero;
+									FinSi
+								FinSi
+							Fin Para
+							
+							
+							Si (encontrado == Falso) Entonces
 								Escribir "No Existe un Contacto con ese Nombre, Imposible Borrar";
 								Escribir "------------------------------------------------------";
 							FinSi
 							
 						2:
-							Escribir "Introduce el Teléfono del Contacto a Buscar";
+							auxN = ""; auxT = "";
+							comprNombre = ""; comprTelf = "";
+							
+							Escribir "Introduce el Teléfono del Contacto a Buscar Para Borrarlo";
 							Leer comprTelf;
 							
-							Si (comprTelf == telf) Entonces
-								telf = "";
-								nombre = "";
-								Escribir "Contacto Borrado";
-								Escribir "----------------";
-							SiNo
+							
+							Para i=0 Hasta tam-1 Con Paso 1 Hacer
+								Si (vContactos[i] <> "") Entonces
+									Para j = 0 Hasta Longitud(vContactos[i])-1 Con Paso 1 Hacer
+										Si (Subcadena(vContactos[i],j,j) == ";") Entonces
+											auxN = Subcadena(vContactos[i],0,j-1);
+											auxT = Subcadena(vContactos[i],j+1,Longitud(vContactos[i])-1);
+										FinSi
+									Fin Para
+									
+									Si (comprTelf == auxT) Entonces
+										telf = "";
+										nombre = "";
+										Escribir "Contacto Borrado";
+										Escribir "----------------";
+										encontrado = Verdadero;
+									FinSi
+								FinSi
+							Fin Para
+							
+							
+							Si (encontrado == Falso) Entonces
 								Escribir "No Existe un Contacto con ese Teléfono, Imposible Borrar";
 								Escribir "--------------------------------------------------------";
 							FinSi
@@ -183,16 +285,23 @@ Algoritmo Agenda_Teléfonica
 				Hasta Que opcBorrar == 3;
 				
 			5:
-				Escribir "Lista de Contactos: Nombre: " + nombre + " Teléfono: ", telf;
+				Para i=1 Hasta tam-1 Con Paso 1 Hacer
+					Si (vContactos[i] <> "") Entonces
+						Para j = 0 Hasta Longitud(vContactos[i])-1 Con Paso 1 Hacer
+							Si (Subcadena(vContactos[i],j,j) == ";") Entonces
+								auxN = Subcadena(vContactos[i],0,j-1);
+								auxT = Subcadena(vContactos[i],j+1,Longitud(vContactos[i])-1);
+							FinSi
+						Fin Para
+					FinSi
+					Escribir "-----Lista de Contactos-----";
+					Escribir auxN + " --- " + auxT;
+				Fin Para
 				
 			6:
-				Escribir "Aplicación Finalizada";
+				Escribir "Agenda Teléfonica Finalizada";
 		Fin Segun
 	Hasta Que opc == 6;
-	
-	
-	
-	
 	
 	
 FinAlgoritmo
