@@ -28,7 +28,9 @@ SubProceso guardar_contacto(vContactos, tam)
 			i = tam;
 		FinSi
 	Fin Para
-	Escribir contacto;
+	
+	Escribir "El Contacto queda Así: " + contacto;
+	Escribir "--------------------------------------------------------------";
 	
 FinFuncion
 
@@ -144,14 +146,8 @@ SubProceso editar_contacto(vContactos, tam)
 							FinSi
 						Fin Para
 						Si (comprNombre == auxN) Entonces
-							Escribir "Escribe Ahora el Nuevo Nombre Para el Contacto";
-							Leer nombre;
 							
-							Escribir "Escribe Ahora el Nuevo Telf. Para el Contacto";
-							Leer telf;
-							
-							Escribir "El Contacto queda Así, Nombre: " + nombre + " Teléfono: ", telf;
-							Escribir "--------------------------------------------------------------";
+							guardar_contacto(vContactos, tam);
 							encontrado = Verdadero;
 						FinSi
 					FinSi
@@ -352,6 +348,7 @@ Algoritmo Agenda_Teléfonica_Funciones
 				mostrar_contactos(vContactos, tam);
 			6:
 				Escribir "Agenda Teléfonica Finalizada";
+				Escribir "----------------------------";
 		Fin Segun
 	Hasta Que opc == 6;
 	
