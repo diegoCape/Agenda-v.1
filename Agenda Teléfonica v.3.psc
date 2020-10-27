@@ -111,6 +111,7 @@ SubProceso buscar_contacto(vContactos, tam)
 				Escribir "Búsqueda de Contactos Finalizada";
 		Fin Segun
 	Hasta Que opcBuscar == 3;
+	
 FinSubProceso
 
 SubProceso editar_contacto(vContactos, tam)
@@ -288,6 +289,7 @@ SubProceso borrar_contacto(vContactos, tam)
 				Escribir "-------------------------------";
 		Fin Segun
 	Hasta Que opcBorrar == 3;
+	
 FinSubProceso
 
 SubProceso mostrar_contactos(vContactos, tam)
